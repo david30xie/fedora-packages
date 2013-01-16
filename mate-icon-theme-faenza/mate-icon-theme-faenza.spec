@@ -35,15 +35,15 @@ if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/matefaenza &>/dev/null
     /bin/touch --no-create %{_datadir}/icons/matefaenzagray &>/dev/null
     /bin/touch --no-create %{_datadir}/icons/matefaenzadark &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/matefaenza &>/dev/null || :
-    gtk-update-icon-cache %{_datadir}/icons/matefaenzagray &>/dev/null || :
-    gtk-update-icon-cache %{_datadir}/icons/matefaenzadark &>/dev/null || :
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/matefaenza &>/dev/null || :
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/matefaenzagray &>/dev/null || :
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/matefaenzadark &>/dev/null || :
 fi
 
 %posttrans
-gtk-update-icon-cache %{_datadir}/icons/matefaenza &>/dev/null || :
-gtk-update-icon-cache %{_datadir}/icons/matefaenzagray &>/dev/null || :
-gtk-update-icon-cache %{_datadir}/icons/matefaenzadark &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/matefaenza &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/matefaenzagray &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/matefaenzadark &>/dev/null || :
 
 %files
 %doc COPYING AUTHORS
