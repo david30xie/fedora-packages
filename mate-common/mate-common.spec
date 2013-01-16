@@ -8,7 +8,6 @@ BuildArch:      noarch
 License:        GPL
 URL: 			http://pub.mate-desktop.org
 Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # This will pull in the latest version; if your package requires something older,
 # well, BuildRequire it in that spec.  At least until such time as we have a
@@ -44,11 +43,7 @@ cp doc/usage.txt usage.txt
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
-%defattr(-,root,root,-)
 %doc doc-README README COPYING usage.txt ChangeLog
 %{_bindir}/*
 %{_datadir}/aclocal/*
