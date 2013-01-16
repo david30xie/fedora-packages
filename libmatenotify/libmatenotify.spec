@@ -14,7 +14,6 @@ BuildRequires: 	glib2-devel >= %{glib2_version}
 BuildRequires: 	gdk-pixbuf2-devel
 BuildRequires: 	dbus-devel >= %{dbus_version}
 BuildRequires: 	dbus-glib-devel >= %{dbus_glib_version}
-#BuildRequires: 	gobject-introspection-devel
 BuildRequires:  mate-common
 BuildRequires:  gtk-doc
 BuildRequires:  gtk2-devel
@@ -48,7 +47,6 @@ NOCONFIGURE=1 ./autogen.sh
 
 %configure \
 	--disable-static \
-
 make %{?_smp_mflags}
 
 %install
@@ -75,7 +73,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_libdir}/pkgconfig/libmatenotify.pc
 %dir %{_datadir}/gtk-doc/html/libmatenotify
 %{_datadir}/gtk-doc/html/libmatenotify/*
-
 
 %changelog
 * Wed Jan 16 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
