@@ -3,10 +3,10 @@
 
 Summary: 		Desktop notification library
 Name: 			libmatenotify
-Version: 		1.4.0
+Version: 		1.5.0
 Release: 		1%{?dist}
 URL: 			http://pub.mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 License: 		LGPLv2+
 Group: 			System Environment/Libraries
 BuildRequires: 	libtool
@@ -67,7 +67,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 %{_bindir}/mate-notify-send
 %{_libdir}/libmatenotify.so.*
-#%{_libdir}/girepository-1.0/mate/Notify-0.7.typelib
 
 %files devel
 %dir %{_includedir}/libmatenotify
@@ -76,10 +75,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_libdir}/pkgconfig/libmatenotify.pc
 %dir %{_datadir}/gtk-doc/html/libmatenotify
 %{_datadir}/gtk-doc/html/libmatenotify/*
-#%{_datadir}/gir-1.0/mate/Notify-0.7.gir
 
 
 %changelog
+* Wed Jan 16 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
