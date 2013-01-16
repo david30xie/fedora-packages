@@ -1,5 +1,5 @@
 Name:           mate-common
-Version:        1.4.0
+Version:        1.5.1
 Release:        1%{?dist}
 Summary:        mate-common contains useful things common to building mate packages
 
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/
 
 %changelog
+* Wed Jan 16 2013 David Xie <david.scriptfan@gmail.com> - 1.5.1-1
+- update to v1.5.1
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
