@@ -1,9 +1,9 @@
 Summary: 		MATE icon theme
 Name: 			mate-icon-theme
-Version: 		1.4.0
+Version: 		1.5.0
 Release: 		1%{?dist}
 URL: 	 		http://mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Source0: 		http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 License: 		GPL+
 BuildArch: 		noarch
 Group: 			User Interface/Desktops
@@ -63,39 +63,43 @@ mkdir -p scalable/status
 ) > legacy.txt
 
 %post
-touch --no-create %{_datadir}/icons/mate &>/dev/null || :
+/bin/touch --no-create %{_datadir}/icons/mate &>/dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/mate &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
+    /bin/touch --no-create %{_datadir}/icons/mate &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
 fi
 
 %posttrans
-gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
 
 %post legacy
-touch --no-create %{_datadir}/icons/mate &>/dev/null || :
+/bin/touch --no-create %{_datadir}/icons/mate &>/dev/null || :
 
 %postun legacy
 if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/mate &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
+    /bin/touch --no-create %{_datadir}/icons/mate &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
 fi
 
 %posttrans legacy
-gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/mate &>/dev/null || :
 
 
 %files -f files.txt
-%defattr(-,root,root,-)
 %doc COPYING AUTHORS
 %{_datadir}/pkgconfig/mate-icon-theme.pc
 
 %files legacy -f legacy.txt
-%defattr(-,root,root,-)
 
 %changelog
+* Wed Jan 16 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
+* Mon Jul 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
+- update to 1.4.0 version
+
 * Mon Jul 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0 version
 
