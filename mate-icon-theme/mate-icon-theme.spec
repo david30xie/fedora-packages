@@ -8,7 +8,6 @@ License: 		GPL+
 BuildArch: 		noarch
 Group: 			User Interface/Desktops
 BuildRequires: 	icon-naming-utils
-BuildRequires: 	gettext
 BuildRequires: 	intltool
 BuildRequires:  mate-common
 Requires: 		hicolor-icon-theme
@@ -36,7 +35,6 @@ NOCONFIGURE=1 ./autogen.sh
 	--enable-icon-mapping
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 # Add scalable directories for symbolic icons
