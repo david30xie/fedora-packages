@@ -40,14 +40,13 @@ cp doc-build/README doc-README
 cp doc/usage.txt usage.txt
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 %files
 %doc doc-README README COPYING usage.txt ChangeLog
 %{_bindir}/*
 %{_datadir}/aclocal/*
-%{_datadir}/%{name}
+%{_datadir}/%{name}/
 %{_mandir}/
 
 %changelog
