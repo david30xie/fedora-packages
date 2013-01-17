@@ -9,16 +9,16 @@ URL: 			http://pub.mate-desktop.org
 Source0: 		http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 License: 		LGPLv2+
 Group: 			System Environment/Libraries
-BuildRequires: 	libtool
-BuildRequires: 	glib2-devel >= %{glib2_version}
-BuildRequires: 	gdk-pixbuf2-devel
-BuildRequires: 	dbus-devel >= %{dbus_version}
-BuildRequires: 	dbus-glib-devel >= %{dbus_glib_version}
-BuildRequires:  mate-common
-BuildRequires:  gtk-doc
-BuildRequires:  gtk2-devel
-Requires: 		glib2 >= %{glib2_version}
-
+BuildRequires:	libtool
+BuildRequires:	glib2-devel >= %{glib2_version}
+BuildRequires:	gdk-pixbuf2-devel
+BuildRequires:	gobject-introspection-devel
+BuildRequires:	dbus-devel >= %{dbus_version}
+BuildRequires:	dbus-glib-devel >= %{dbus_glib_version}
+BuildRequires:	mate-common
+BuildRequires:	gtk-doc
+BuildRequires:	gtk2-devel
+Requires:		glib2 >= %{glib2_version}
 
 %description
 libnotify is a library for sending desktop notifications to a notification
@@ -50,7 +50,6 @@ NOCONFIGURE=1 ./autogen.sh
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
