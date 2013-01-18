@@ -1,25 +1,22 @@
-%define dbus_version		0.90
-%define dbus_glib_version	0.70
+%global dbus_version		0.90
+%global dbus_glib_version	0.70
 
-Summary: 		Desktop notification library
-Name: 			libmatenotify
-Version: 		1.4.0
-Release: 		1%{?dist}
-URL: 			http://pub.mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
-License: 		LGPLv2+
-Group: 			System Environment/Libraries
-BuildRequires: 	libtool
-BuildRequires: 	glib2-devel >= %{glib2_version}
-BuildRequires: 	gdk-pixbuf2-devel
-BuildRequires: 	dbus-devel >= %{dbus_version}
-BuildRequires: 	dbus-glib-devel >= %{dbus_glib_version}
-#BuildRequires: 	gobject-introspection-devel
-BuildRequires:  mate-common
-BuildRequires:  gtk-doc
-BuildRequires:  gtk2-devel
-Requires: 		glib2 >= %{glib2_version}
-
+Summary:		Desktop notification library
+Name:			libmatenotify
+Version:		1.5.0
+Release:		1%{?dist}
+URL:			http://pub.mate-desktop.org
+Source0:		http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
+License:		LGPLv2+
+Group:			System Environment/Libraries
+BuildRequires:	glib2-devel >= %{glib2_version}
+BuildRequires:	gdk-pixbuf2-devel
+BuildRequires:	dbus-devel >= %{dbus_version}
+BuildRequires:	dbus-glib-devel >= %{dbus_glib_version}
+BuildRequires:	mate-common
+BuildRequires:	gtk-doc
+BuildRequires:	gtk2-devel
+Requires:		glib2 >= %{glib2_version}
 
 %description
 libnotify is a library for sending desktop notifications to a notification
@@ -45,14 +42,11 @@ development of programs using %{name}.
 NOCONFIGURE=1 ./autogen.sh
 
 %build
-
 %configure \
-	--disable-static \
-
+	--disable-static
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
@@ -67,7 +61,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 %{_bindir}/mate-notify-send
 %{_libdir}/libmatenotify.so.*
-#%{_libdir}/girepository-1.0/mate/Notify-0.7.typelib
 
 %files devel
 %dir %{_includedir}/libmatenotify
@@ -76,10 +69,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_libdir}/pkgconfig/libmatenotify.pc
 %dir %{_datadir}/gtk-doc/html/libmatenotify
 %{_datadir}/gtk-doc/html/libmatenotify/*
-#%{_datadir}/gir-1.0/mate/Notify-0.7.gir
-
 
 %changelog
+* Wed Jan 16 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
