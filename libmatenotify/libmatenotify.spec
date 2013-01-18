@@ -1,18 +1,16 @@
-%define dbus_version		0.90
-%define dbus_glib_version	0.70
+%global dbus_version		0.90
+%global dbus_glib_version	0.70
 
-Summary: 		Desktop notification library
-Name: 			libmatenotify
-Version: 		1.5.0
-Release: 		1%{?dist}
-URL: 			http://pub.mate-desktop.org
-Source0: 		http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
-License: 		LGPLv2+
-Group: 			System Environment/Libraries
-BuildRequires:	libtool
+Summary:		Desktop notification library
+Name:			libmatenotify
+Version:		1.5.0
+Release:		1%{?dist}
+URL:			http://pub.mate-desktop.org
+Source0:		http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
+License:		LGPLv2+
+Group:			System Environment/Libraries
 BuildRequires:	glib2-devel >= %{glib2_version}
 BuildRequires:	gdk-pixbuf2-devel
-BuildRequires:	gobject-introspection-devel
 BuildRequires:	dbus-devel >= %{dbus_version}
 BuildRequires:	dbus-glib-devel >= %{dbus_glib_version}
 BuildRequires:	mate-common
@@ -44,9 +42,8 @@ development of programs using %{name}.
 NOCONFIGURE=1 ./autogen.sh
 
 %build
-
 %configure \
-	--disable-static \
+	--disable-static
 make %{?_smp_mflags}
 
 %install
