@@ -7,7 +7,7 @@ Group:          Development/Tools
 BuildArch:      noarch
 License:        GPL
 URL: 			http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 
 # This will pull in the latest version; if your package requires something older,
 # well, BuildRequire it in that spec.  At least until such time as we have a
