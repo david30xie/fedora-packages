@@ -17,11 +17,11 @@
 
 Summary: 	Utilities to configure the Mate desktop
 Name: 		mate-control-center
-Version: 	1.4.0
+Version: 	1.5.3
 Release: 	1%{?dist}
 License: 	GPLv2+ and GFDL
 Group: 		User Interface/Desktops
-Source: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Source: 	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 URL: 		http://pub.mate-desktop.org
 
 Requires: mate-settings-daemon >= 1.1.0
@@ -59,7 +59,8 @@ BuildRequires: dbus-glib-devel >= 0.70
 BuildRequires: scrollkeeper
 BuildRequires: libcanberra-devel
 BuildRequires: unique-devel
-BuildRequires: marco-devel
+#BuildRequires: marco-devel
+BuildRequires: dconf-devel
 BuildRequires: mate-common
 
 Requires(preun): mate-conf
@@ -103,16 +104,14 @@ for applications. This package contains directories where applications
 can install configuration files that are picked up by the control-center
 utilities.
 
-
 %prep
 %setup -q -n mate-control-center-%{version}
 
 NOCONFIGURE=1 ./autogen.sh
 
 %build
-
 %configure \
-	--disable-scrollkeeper    \
+    --disable-scrollkeeper    \
     --disable-static \
     --disable-update-mimedb
 
@@ -128,18 +127,16 @@ make install DESTDIR=$RPM_BUILD_ROOT
 unset MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 for i in apps_mate_settings_daemon_default_editor.schemas		\
-	    apps_mate_settings_daemon_keybindings.schemas		\
-	    apps_mate_settings_daemon_screensaver.schemas		\
-	    desktop_mate_font_rendering.schemas ; do			\
-	    rm -f $RPM_BUILD_ROOT%{_sysconfdir}/mateconf/schemas/$i ;	\
+        apps_mate_settings_daemon_keybindings.schemas		\
+        apps_mate_settings_daemon_screensaver.schemas		\
+        desktop_mate_font_rendering.schemas ; do			\
+        rm -f $RPM_BUILD_ROOT%{_sysconfdir}/mateconf/schemas/$i ;	\
 done
 
 # we do want this
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/mate/wm-properties
 
 # we don't want these
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/mate/autostart
-#rm -rf $RPM_BUILD_ROOT%{_datadir}/mate/cursor-fonts
 rm $RPM_BUILD_ROOT%{_datadir}/applications/mimeinfo.cache
 
 # remove useless libtool archive files
@@ -158,26 +155,26 @@ export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
 
 update-desktop-database --quiet %{_datadir}/applications
 update-mime-database %{_datadir}/mime > /dev/null
-touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
+/bin/touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
 
 %pre
 if [ "$1" -gt 1 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  mateconftool-2 --makefile-uninstall-rule \
-	%{_sysconfdir}/mateconf/schemas/fontilus.schemas \
-	%{_sysconfdir}/mateconf/schemas/mate-control-center.schemas \
-	%{_sysconfdir}/mateconf/schemas/control-center.schemas \
-	> /dev/null || :
+    export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
+    mateconftool-2 --makefile-uninstall-rule \
+    %{_sysconfdir}/mateconf/schemas/fontilus.schemas \
+    %{_sysconfdir}/mateconf/schemas/mate-control-center.schemas \
+    %{_sysconfdir}/mateconf/schemas/control-center.schemas \
+    > /dev/null || :
 fi
 
 %preun
 if [ "$1" -eq 0 ]; then
-  export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-  mateconftool-2 --makefile-uninstall-rule \
-	%{_sysconfdir}/mateconf/schemas/fontilus.schemas \
-	%{_sysconfdir}/mateconf/schemas/mate-control-center.schemas \
-	%{_sysconfdir}/mateconf/schemas/control-center.schemas \
-	> /dev/null || :
+    export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
+    mateconftool-2 --makefile-uninstall-rule \
+    %{_sysconfdir}/mateconf/schemas/fontilus.schemas \
+    %{_sysconfdir}/mateconf/schemas/mate-control-center.schemas \
+    %{_sysconfdir}/mateconf/schemas/control-center.schemas \
+    > /dev/null || :
 fi
 
 
@@ -186,12 +183,12 @@ fi
 update-desktop-database --quiet %{_datadir}/applications
 update-mime-database %{_datadir}/mime > /dev/null
 if [ $1 -eq 0 ]; then
-  touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
-  gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
+    /bin/touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 fi
 
 %posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 
 %files -f %{gettext_package}.lang
 %defattr(-, root, root)
@@ -205,9 +202,13 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/polkit-1/actions/*
 %{_datadir}/pkgconfig/mate-keybindings.pc
 %{_datadir}/pkgconfig/mate-default-applications.pc
+%{_datadir}/glib-2.0/
+%{_datadir}/MateConf/gsettings/mate-control-center.convert
+%{_datadir}/thumbnailers/mate-font-viewer.thumbnailer
 # list all binaries explicitly, so we notice if one goes missing
-%{_bindir}/mate-at-mobility
-%{_bindir}/mate-at-visual
+#%{_bindir}/mate-at-mobility
+#%{_bindir}/mate-at-visual
+%{_bindir}/mate-about-me
 %{_bindir}/mate-control-center
 %{_bindir}/mate-typing-monitor
 %{_bindir}/mate-font-viewer
@@ -222,11 +223,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_bindir}/mate-network-properties
 %{_bindir}/mate-window-properties
 %{_libdir}/*.so.*
-%{_sysconfdir}/mateconf/schemas/control-center.schemas
-%{_sysconfdir}/mateconf/schemas/mate-control-center.schemas
-%{_sysconfdir}/mateconf/schemas/fontilus.schemas
+%{_libdir}/libslab.so
+#%{_sysconfdir}/mateconf/schemas/control-center.schemas
+#%{_sysconfdir}/mateconf/schemas/mate-control-center.schemas
+#%{_sysconfdir}/mateconf/schemas/fontilus.schemas
 %{_sysconfdir}/xdg/menus/matecc.menu
-%{_sysconfdir}/xdg/autostart/mate-at-session.desktop
+#%{_sysconfdir}/xdg/autostart/mate-at-session.desktop
 %{_libdir}/window-manager-settings
 %{_sbindir}/mate-display-properties-install-systemwide
 %{_datadir}/mime/packages/mate-theme-package.xml
@@ -237,6 +239,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %files devel
 %defattr(-,root,root)
 %{_includedir}/mate-window-settings-2.0
+%{_includedir}/libslab/
 %{_libdir}/libmate-window-settings.so
 %{_libdir}/pkgconfig/*
 
@@ -248,6 +251,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 
 
 %changelog
+* Sat Jan 19 2013 David Xie <david.scriptfan@gmail.com> - 1.5.3-1
+- Update to v1.5.3
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
