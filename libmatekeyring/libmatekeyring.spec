@@ -4,17 +4,16 @@
 
 Summary: 		Framework for managing passwords and other secrets
 Name:    		libmatekeyring
-Version: 		1.4.0
+Version: 		1.5.0
 Release: 		1%{?dist}
 License: 		GPLv2+ and LGPLv2+
 Group:   		System Environment/Libraries
-Source:  		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Source:  		http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 URL:     		http://pub.mate-desktop.org
 
 BuildRequires: 	glib2-devel >= %{glib2_version}
 BuildRequires: 	dbus-devel >= %{dbus_version}
 BuildRequires: 	libgcrypt-devel >= %{gcrypt_version}
-BuildRequires: 	intltool
 BuildRequires:  mate-common
 BuildRequires:  gtk-doc
 
@@ -77,6 +76,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc %{_datadir}/gtk-doc/
 
 %changelog
+* Sat Jan 19 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
