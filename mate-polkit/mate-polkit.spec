@@ -1,17 +1,16 @@
 Summary: 	PolicyKit integration for the MATE desktop
 Name: 		mate-polkit
-Version: 	1.4.0
+Version: 	1.5.0
 Release: 	1%{?dist}
 License: 	LGPLv2+
 URL: 		http://mate-desktop.org
 Group: 		Applications/System
-Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 
 BuildRequires: gtk2-devel
 BuildRequires: glib2-devel >= 2.25.11
 BuildRequires: polkit-devel >= 0.97-1
 BuildRequires: desktop-file-utils
-BuildRequires: intltool
 BuildRequires: gobject-introspection-devel
 BuildRequires: gtk-doc
 BuildRequires: mate-common
@@ -19,9 +18,7 @@ BuildRequires: cairo-gobject-devel
 
 Provides: polkit-mate-1 = 1.1.0
 Provides: libpolkit-gtk-mate-1 = 1.1.0
-
 Provides: polkit-mate-authentication-agent-1
-
 Requires: polkit >= 0.97
 
 %description
@@ -63,7 +60,6 @@ NOCONFIGURE=1 ./autogen.sh
 make
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
@@ -76,7 +72,6 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %postun -p /sbin/ldconfig
 
 %files -f mate-polkit.lang
-%defattr(-,root,root,-)
 %doc COPYING AUTHORS README
 %{_sysconfdir}/xdg/autostart/*
 %{_libexecdir}/*
@@ -84,18 +79,19 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %files devel
-%defattr(-,root,root,-)
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/*
 %{_datadir}/gir-1.0/*.gir
 
 %files docs
-%defattr(-,root,root,-)
 %{_datadir}/gtk-doc
 
 
 %changelog
+* Sat Jan 19 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
 * Mon Jul 16 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0 version
 
