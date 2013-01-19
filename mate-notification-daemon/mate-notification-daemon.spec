@@ -2,10 +2,10 @@
 
 Summary: 	Desktop Mate Notification Daemon
 Name: 		mate-notification-daemon
-Version: 	1.4.0
+Version: 	1.5.0
 Release: 	1%{?dist}
 URL: 		http://mate-desktop.org
-Source0: 	http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Source0: 	http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 License: 	GPLv2+
 Group: 		System Environment/Libraries
 Provides: 	desktop-notification-daemon
@@ -13,7 +13,6 @@ Provides: 	desktop-notification-daemon
 BuildRequires: dbus-devel >= %{dbus_version}
 BuildRequires: libmatenotify-devel
 BuildRequires: libcanberra-devel
-BuildRequires: intltool
 BuildRequires: mate-common
 BuildRequires: mate-conf-devel
 BuildRequires: libmatewnck-devel
@@ -68,21 +67,23 @@ if [ "$1" -eq 0 ]; then
 fi
 
 
-
 %files -f %{name}.lang
 %doc COPYING AUTHORS NEWS
 
 %{_libexecdir}/mate-notification-daemon
 %{_datadir}/applications/mate-notification-properties.desktop
-%{_sysconfdir}/mateconf/schemas/mate-notification-daemon.schemas
 %{_bindir}/mate-notification-properties
 %{_libdir}/mate-notification-daemon/engines/*
 %{_datadir}/dbus-1/services/org.freedesktop.mate.Notifications.service
 %{_datadir}/icons/hicolor/*
 %{_datadir}/mate-notification-daemon/mate-notification-properties.ui
+%{_datadir}/glib-2.0/schemas/org.mate.NotificationDaemon.gschema.xml
 
 
 %changelog
+* Sat Jan 19 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
