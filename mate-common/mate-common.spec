@@ -1,5 +1,5 @@
 Name:           mate-common
-Version:        1.4.0
+Version:        1.5.1
 Release:        1%{?dist}
 Summary:        mate-common contains useful things common to building mate packages
 
@@ -7,8 +7,7 @@ Group:          Development/Tools
 BuildArch:      noarch
 License:        GPL
 URL: 			http://pub.mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0:        http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 
 # This will pull in the latest version; if your package requires something older,
 # well, BuildRequire it in that spec.  At least until such time as we have a
@@ -41,21 +40,19 @@ cp doc-build/README doc-README
 cp doc/usage.txt usage.txt
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files
-%defattr(-,root,root,-)
 %doc doc-README README COPYING usage.txt ChangeLog
 %{_bindir}/*
 %{_datadir}/aclocal/*
-%{_datadir}/%{name}
+%{_datadir}/%{name}/
 %{_mandir}/
 
 %changelog
+* Wed Jan 16 2013 David Xie <david.scriptfan@gmail.com> - 1.5.1-1
+- update to v1.5.1
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
