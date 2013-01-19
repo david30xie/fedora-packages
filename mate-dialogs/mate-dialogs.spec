@@ -1,11 +1,11 @@
-Name:		mate-dialogs
-Version:	1.4.0
-Release:	1%{?dist}
-Summary:	Display dialog boxes from shell scripts
-Group:		Applications/System
-License:	LGPLv2+
-URL:		http://mate-desktop.or
-Source:		http://pub.mate-desktop.org/releases/1.4/%{name}-%{version}.tar.xz
+Name:          mate-dialogs
+Version:       1.5.0
+Release:       1%{?dist}
+Summary:       Display dialog boxes from shell scripts
+Group:         Applications/System
+License:       LGPLv2+
+URL:           http://mate-desktop.or
+Source:        http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 
 BuildRequires: mate-doc-utils >= 1.0.0
 BuildRequires: glib2-devel >= 2.7.3
@@ -13,8 +13,6 @@ BuildRequires: gtk2-devel
 BuildRequires: libmatenotify-devel >= 1.1.0
 BuildRequires: scrollkeeper
 BuildRequires: which
-BuildRequires: gettext
-BuildRequires: intltool
 BuildRequires: mate-common
 
 %description
@@ -36,7 +34,6 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 # we don't want a perl dependency just for this
@@ -62,7 +59,6 @@ done
 
 
 %files
-%defattr(-,root,root,-)
 %doc COPYING AUTHORS NEWS THANKS README
 %{_bindir}/matedialog
 %{_datadir}/matedialog
@@ -74,6 +70,9 @@ done
 
 
 %changelog
+* Sat Jan 19 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
 * Thu Jul 05 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
