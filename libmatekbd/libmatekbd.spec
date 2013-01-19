@@ -1,18 +1,16 @@
 Name:           libmatekbd
-Version:        1.4.0
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        A keyboard configuration library
 
 Group:          System Environment/Libraries
 License:        LGPLv2+
 URL: 			http://mate-desktop.org
-Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.5/%{name}-%{version}.tar.xz
 
 BuildRequires:  cairo-devel
 BuildRequires:  libxklavier-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
-BuildRequires:  intltool
 BuildRequires:  mate-conf-devel
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk2-devel
@@ -60,7 +58,6 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
 export MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 unset MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
@@ -68,9 +65,6 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %find_lang %{name}
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %post
@@ -110,25 +104,22 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING.LIB
 %{_libdir}/*.so.*
 %{_datadir}/libmatekbd
-%{_sysconfdir}/mateconf/schemas/desktop_mate_peripherals_keyboard_xkb.schemas
+%{_datadir}/glib-2.0/schemas/org.mate.peripherals-keyboard-xkb.gschema.xml
 
 
 %files devel
-%defattr(-,root,root,-)
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 
-%files capplet
-%defattr(-,root,root,-)
-%{_bindir}/matekbd-indicator-plugins-capplet
-%{_datadir}/applications/matekbd-indicator-plugins-capplet.desktop
 
 %changelog
+* Sat Jan 19 2013 David Xie <david.scriptfan@gmail.com> - 1.5.0-1
+- update to v1.5.0
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <chat-to-me@raveit.de> - 1.4.0-1
 - update to 1.4.0
 
