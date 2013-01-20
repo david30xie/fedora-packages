@@ -59,7 +59,7 @@ BuildRequires: dbus-glib-devel >= 0.70
 BuildRequires: scrollkeeper
 BuildRequires: libcanberra-devel
 BuildRequires: unique-devel
-#BuildRequires: marco-devel
+BuildRequires: mate-window-manager-devel
 BuildRequires: dconf-devel
 BuildRequires: mate-common
 
@@ -118,7 +118,6 @@ NOCONFIGURE=1 ./autogen.sh
 # drop unneeded direct library deps with --as-needed
 # libtool doesn't make this easy, so we do it the hard way
 sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0 /g' -e 's/    if test "$export_dynamic" = yes && test -n "$export_dynamic_flag_spec"; then/      func_append compile_command " -Wl,-O1,--as-needed"\n      func_append finalize_command " -Wl,-O1,--as-needed"\n\0/' libtool
-
 make %{?_smp_mflags}
 
 %install
@@ -126,12 +125,6 @@ export MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make install DESTDIR=$RPM_BUILD_ROOT
 unset MATECONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
-for i in apps_mate_settings_daemon_default_editor.schemas		\
-        apps_mate_settings_daemon_keybindings.schemas		\
-        apps_mate_settings_daemon_screensaver.schemas		\
-        desktop_mate_font_rendering.schemas ; do			\
-        rm -f $RPM_BUILD_ROOT%{_sysconfdir}/mateconf/schemas/$i ;	\
-done
 
 # we do want this
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/mate/wm-properties
@@ -146,36 +139,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} \;
 
 %post
 /sbin/ldconfig
-export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-	mateconftool-2 --makefile-install-rule \
-	%{_sysconfdir}/mateconf/schemas/fontilus.schemas \
-	%{_sysconfdir}/mateconf/schemas/mate-control-center.schemas \
-	%{_sysconfdir}/mateconf/schemas/control-center.schemas \
-	> /dev/null || :
 
 update-desktop-database --quiet %{_datadir}/applications
 update-mime-database %{_datadir}/mime > /dev/null
 /bin/touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
-
-%pre
-if [ "$1" -gt 1 ]; then
-    export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-    mateconftool-2 --makefile-uninstall-rule \
-    %{_sysconfdir}/mateconf/schemas/fontilus.schemas \
-    %{_sysconfdir}/mateconf/schemas/mate-control-center.schemas \
-    %{_sysconfdir}/mateconf/schemas/control-center.schemas \
-    > /dev/null || :
-fi
-
-%preun
-if [ "$1" -eq 0 ]; then
-    export MATECONF_CONFIG_SOURCE=`mateconftool-2 --get-default-source`
-    mateconftool-2 --makefile-uninstall-rule \
-    %{_sysconfdir}/mateconf/schemas/fontilus.schemas \
-    %{_sysconfdir}/mateconf/schemas/mate-control-center.schemas \
-    %{_sysconfdir}/mateconf/schemas/control-center.schemas \
-    > /dev/null || :
-fi
 
 
 %postun
@@ -237,14 +204,12 @@ fi
 %{_datadir}/omf/mate-control-center/*.omf
 
 %files devel
-%defattr(-,root,root)
 %{_includedir}/mate-window-settings-2.0
 %{_includedir}/libslab/
 %{_libdir}/libmate-window-settings.so
 %{_libdir}/pkgconfig/*
 
 %files filesystem
-%defattr(-,root,root)
 %dir %{_datadir}/mate/wm-properties
 %dir %{_datadir}/mate-control-center
 %dir %{_datadir}/mate-control-center/keybindings
